@@ -1,0 +1,6 @@
+.env
+.env.local
+.encryptedKey.json
+node_modules
+dist
+
