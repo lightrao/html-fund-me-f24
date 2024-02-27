@@ -15,7 +15,7 @@ async function connect() {
   // Front end interact etherum object to send transactions to wallet
   if (typeof window.ethereum !== "undefined") {
     try {
-      await ethereum.request({ method: "eth_requestAccounts" }); // try to connect one fo account in MetaMask
+      await ethereum.request({ method: "eth_requestAccounts" }); // try to connect one of account in MetaMask
     } catch (error) {
       console.log(error);
     }
@@ -31,7 +31,10 @@ async function withdraw() {
   console.log(`Withdrawing...`);
   if (typeof window.ethereum !== "undefined") {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+    // Request account access if MetaMask is locked or not yet connected to the app
     await provider.send("eth_requestAccounts", []);
+
     const signer = provider.getSigner();
     const contract = new ethers.Contract(contractAddress, abi, signer);
     try {
@@ -51,6 +54,10 @@ async function fund() {
   console.log(`Funding with ${ethAmount}...`);
   if (typeof window.ethereum !== "undefined") {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+    // Request account access if MetaMask is locked or not yet connected to the app
+    await provider.send("eth_requestAccounts", []);
+
     const signer = provider.getSigner();
     const contract = new ethers.Contract(contractAddress, abi, signer);
     try {
@@ -85,6 +92,7 @@ function listenForTransactionMine(transactionResponse, provider) {
   console.log(`Mining ${transactionResponse.hash}`);
 
   return new Promise((resolve, reject) => {
+    // listen for a one-time event that indicates the transaction with the given hash has been mined.
     provider.once(transactionResponse.hash, (transactionReceipt) => {
       console.log(
         `Completed with ${transactionReceipt.confirmations} confirmations.`
