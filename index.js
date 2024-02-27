@@ -11,9 +11,11 @@ fundButton.onclick = fund
 balanceButton.onclick = getBalance
 
 async function connect() {
+  // MetaMask inject ethereum object into window of our browser
+  // Front end interact etherum object to send transactions to wallet
   if (typeof window.ethereum !== "undefined") {
     try {
-      await ethereum.request({ method: "eth_requestAccounts" })
+      await ethereum.request({ method: "eth_requestAccounts" }) // try to connect one fo account in MetaMask
     } catch (error) {
       console.log(error)
     }
@@ -29,7 +31,7 @@ async function withdraw() {
   console.log(`Withdrawing...`)
   if (typeof window.ethereum !== "undefined") {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
-    await provider.send('eth_requestAccounts', [])
+    await provider.send("eth_requestAccounts", [])
     const signer = provider.getSigner()
     const contract = new ethers.Contract(contractAddress, abi, signer)
     try {
@@ -68,6 +70,7 @@ async function getBalance() {
   if (typeof window.ethereum !== "undefined") {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     try {
+      // make some rpc call via rpc-url in our MetaMask
       const balance = await provider.getBalance(contractAddress)
       console.log(ethers.utils.formatEther(balance))
     } catch (error) {

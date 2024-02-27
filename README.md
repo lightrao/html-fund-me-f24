@@ -16,6 +16,7 @@ LiveServer
 ```
 git clone https://github.com/lightrao/html-fund-me-f24
 cd html-fund-me-f24
+code .
 ```
 
 2. Run the file.
