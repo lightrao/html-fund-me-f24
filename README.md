@@ -4,10 +4,10 @@ This is a minimalistic example to illustrate how you can interactive with smart 
 
 # Requirements
 
-git
-MetaMask
-Vscode
-LiveServer
+- git
+- MetaMask
+- Vscode
+- LiveServer
 
 # Quickstart
 
