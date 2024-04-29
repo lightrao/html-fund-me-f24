@@ -102,6 +102,9 @@ function listenForTransactionMine(transactionResponse, provider) {
       console.log(
         `Completed with ${transactionReceipt.confirmations} confirmations.`
       );
+      alert(
+        `Completed with ${transactionReceipt.confirmations} confirmations.`
+      );
       resolve();
     });
   });
