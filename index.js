@@ -33,7 +33,12 @@ async function withdraw() {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
 
     // Request account access if MetaMask is locked or not yet connected to the app
-    await provider.send("eth_requestAccounts", []);
+    try {
+      const accounts = await provider.send("eth_requestAccounts", []);
+      console.log("Connected accounts:", accounts);
+    } catch (error) {
+      console.error("Error accessing accounts:", error);
+    }
 
     const signer = provider.getSigner();
     const contract = new ethers.Contract(contractAddress, abi, signer);
