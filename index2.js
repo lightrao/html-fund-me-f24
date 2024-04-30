@@ -50,6 +50,20 @@ async function withdraw() {
         provider
       );
       withdrawButton.innerText = "Withdrawn Successfully";
+
+      // Logging key information from the transaction receipt
+      console.log("Transaction Receipt:");
+      console.log(` - Block Hash: ${receipt.blockHash}`);
+      console.log(` - Transaction Index: ${receipt.transactionIndex}`);
+      console.log(` - From: ${receipt.from}`);
+      console.log(` - To: ${receipt.to}`);
+      console.log(` - Gas Used: ${receipt.gasUsed.toString()}`);
+      console.log(
+        ` - Cumulative Gas Used: ${receipt.cumulativeGasUsed.toString()}`
+      );
+      console.log(` - Contract Address: ${receipt.contractAddress}`);
+      console.log(` - Status: ${receipt.status === 1 ? "Success" : "Failed"}`);
+      console.log(` - Confirmations: ${receipt.confirmations}`);
     } catch (error) {
       console.error("Withdrawal failed:", error);
       withdrawButton.innerText = "Withdraw Failed";
